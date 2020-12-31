@@ -95,7 +95,7 @@ function viewRoles() {
   })
 };
 
-// VIew Departments table
+// View Departments table
 function viewDepartments() {
   connection.query('SELECT id, name AS department FROM department', (err, res) => {
       if (err) throw err;
@@ -138,6 +138,18 @@ function editEmployees() {
   })
 };
 
+// Add employee with options
+function addEmployee() {
+
+}
+
+// Update employee role with options
+
+// Update manager with options
+
+// Remove employee
+
+
 // Edit roles options
 function editRoles() {
   inquirer.prompt({
@@ -167,6 +179,8 @@ function editRoles() {
       }
   })
 };
+
+
 
 // Edit department options
 function editDepartments() {
