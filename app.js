@@ -95,3 +95,12 @@ function viewRoles() {
   })
 };
 
+// Departments table
+function viewDepartments() {
+  connection.query('SELECT id, name AS department FROM department', (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      runSearch();
+  })
+};
+
