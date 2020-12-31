@@ -168,3 +168,29 @@ function editRoles() {
   })
 };
 
+// Edit department options
+function editDepartments() {
+  inquirer.prompt({
+      name: "editDepartment",
+      type: "list",
+      message: "What would you like to update?",
+      choices: [
+          "Add New Department",
+          "Remove Department",
+          "Main Menu"
+      ]
+  }).then(answer => {
+      switch (answer.editDepartment) {
+          case "Add New Department":
+              addDepartment();
+              break;
+          case "Remove Department":
+              removeDepartment();
+              break;
+          case "Main Menu":
+              runSearch();
+              break;
+      }
+  })
+};
+
