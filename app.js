@@ -56,7 +56,7 @@ function runSearch() {
     .then(answer => {
       switch (answer.action) {
         case "View All Employees":
-          employeeSummary();
+          viewEmployeeSummary();
           break;
       case "Edit Employee Info":
           editEmployees();
@@ -76,3 +76,13 @@ function runSearch() {
       }
     });
 }
+
+// Employee Summary Table
+function viewEmployeeSummary() {
+  connection.query('SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", title AS Title, salary AS Salary, name AS Department, CONCAT(m.first_name, " ", m.last_name) AS Manager FROM employee e LEFT JOIN employee m ON e.manager_id = m.id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id', (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+});
+}
+
