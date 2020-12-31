@@ -77,7 +77,7 @@ function runSearch() {
     });
 }
 
-// Employee Summary Table
+// View Employee Summary Table
 function viewEmployeeSummary() {
   connection.query('SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", title AS Title, salary AS Salary, name AS Department, CONCAT(m.first_name, " ", m.last_name) AS Manager FROM employee e LEFT JOIN employee m ON e.manager_id = m.id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id', (err, res) => {
     if (err) throw err;
@@ -86,7 +86,7 @@ function viewEmployeeSummary() {
   })
 };
 
-// Roles table
+// View Roles table
 function viewRoles() {
   connection.query('SELECT r.id, title, salary, name AS department FROM role r LEFT JOIN department d ON department_id = d.id', (err, res) => {
       if (err) throw err;
@@ -95,7 +95,7 @@ function viewRoles() {
   })
 };
 
-// Departments table
+// VIew Departments table
 function viewDepartments() {
   connection.query('SELECT id, name AS department FROM department', (err, res) => {
       if (err) throw err;
@@ -104,3 +104,36 @@ function viewDepartments() {
   })
 };
 
+// Edit employees options
+function editEmployees() {
+  inquirer.prompt({
+      name: "editEmployees",
+      type: "list",
+      message: "What would you like to update?",
+      choices: [
+          "Add New Employee",
+          "Update Employee Role",
+          "Update Employee Manager",
+          "Remove Employee",
+          "Main Menu"
+      ]
+  }).then(answer => {
+      switch (answer.editEmployees) {
+          case "Add New Employee":
+              addEmployee();
+              break;
+          case "Update Employee Role":
+              updateEmployeeRole();
+              break;
+          case "Update Employee Manager":
+              updateManager();
+              break;
+          case "Remove Employee":
+              removeEmployee();
+              break;
+          case "Main Menu":
+              runSearch();
+              break;
+      }
+  })
+};
