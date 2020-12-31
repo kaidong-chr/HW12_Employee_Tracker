@@ -137,3 +137,34 @@ function editEmployees() {
       }
   })
 };
+
+// Edit roles options
+function editRoles() {
+  inquirer.prompt({
+      name: "editRoles",
+      type: "list",
+      message: "What would you like to update?",
+      choices: [
+          "Add New Role",
+          "Update Role",
+          "Remove Role",
+          "Main Menu"
+      ]
+  }).then(answer => {
+      switch (answer.editRoles) {
+          case "Add New Role":
+              addRole();
+              break;
+          case "Update Role":
+              updateRole();
+              break;
+          case "Remove Role":
+              removeRole();
+              break;
+          case "Main Menu":
+              runSearch();
+              break;
+      }
+  })
+};
+
