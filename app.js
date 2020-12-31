@@ -13,7 +13,7 @@ let connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "",
+  password: "homework",
   database: "employeesDB"
 });
 
@@ -22,6 +22,22 @@ connection.connect(function(err) {
   runSearch();
 });
 
+// Asciiart Logo
+console.log(
+  logo({
+    name: "Employee Management Interface",
+    font: "Speed",
+    lineChars: 1,
+    padding: 2,
+    margin: 1,
+    borderColor: "gold",
+    logoColor: "white",
+    textColor: "blue",
+    version: "1.0.0"
+  }).render()
+)
+
+// Main options
 function runSearch() {
   inquirer
     .prompt({
@@ -37,7 +53,7 @@ function runSearch() {
             "Edit Departments"
       ]
     })
-    .then(function(answer) {
+    .then(answer => {
       switch (answer.action) {
         case "View All Employees":
           employeeSummary();
