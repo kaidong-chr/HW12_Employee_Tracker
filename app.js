@@ -314,9 +314,6 @@ editRoles = () => {
           case "Add New Role":
               addRole();
               break;
-          case "Update Role":
-              updateRole();
-              break;
           case "Remove Role":
               removeRole();
               break;
@@ -362,11 +359,27 @@ addRole = async () => {
     })
 };
 
-// Update role
-
-
 // Remove role
+removeRole = async () => {
+    let roles = await connection.query('SELECT id, title FROM role');
+    roles.push({ id: null, title: "Cancel" });
 
+    inquirer.prompt([
+        {
+            name: "roleName",
+            type: "list",
+            message: "Select role to remove:",
+            choices: roles.map(obj => obj.title)
+        }
+    ]).then(response => {
+        if (response.roleName != "Cancel") {
+            let noMoreRole = roles.find(obj => obj.title === response.roleName);
+            connection.query("DELETE FROM role WHERE id=?", noMoreRole.id);
+            console.log(`${response.roleName} was removed.`);
+        }
+        runSearch();
+    })
+};
 
 // Edit department options
 editDepartments = () => {
