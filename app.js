@@ -423,6 +423,25 @@ addDepartment = async () => {
 };
 
 // Remove department
+removeDepartment = async () => {
+    let departments = await connection.query('SELECT id, name FROM department');
+    departments.push({ id: null, name: "Cancel" });
 
+    inquirer.prompt([
+        {
+            name: "deptName",
+            type: "list",
+            message: "Remove which department?",
+            choices: departments.map(obj => obj.name)
+        }
+    ]).then(response => {
+        if (response.deptName != "Cancel") {
+            let uselessDepartment = departments.find(obj => obj.name === response.deptName);
+            connection.query("DELETE FROM department WHERE id=?", uselessDepartment.id);
+            console.log(`${response.deptName} was removed.`);
+        }
+        runSearch();
+    })
+};
 
 runSearch();
