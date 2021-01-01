@@ -328,6 +328,42 @@ editRoles = () => {
 };
 
 // Add role
+addRole = async () => {
+    let departments = await connection.query('SELECT id, name FROM department');
+
+    inquirer.prompt([
+        {
+            name: "roleName",
+            type: "input",
+            message: "Input new role title:",
+        },
+        {
+            name: "salaryNum",
+            type: "input",
+            message: "Input role's salary:",
+            validate: input => {
+                if (!isNaN(input)) {
+                    return true;
+                }
+                return "Please input a valid number."
+            }
+        },
+        {
+            name: "roleDepartment",
+            type: "list",
+            message: "Select role's department:",
+            choices: departments.map(obj => obj.name)
+        }
+    ]).then(answers => {
+        let depID = departments.find(obj => obj.name === answers.roleDepartment).id
+        connection.query("INSERT INTO role (title, salary, department_id) VALUES (?)", [[answers.roleName, answers.salaryNum, depID]]);
+        console.log(`${answers.roleName} was added to department ${answers.roleDepartment}`);
+        runSearch();
+    })
+};
+
+// Update role
+
 
 // Remove role
 
