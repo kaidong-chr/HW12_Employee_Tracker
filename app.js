@@ -166,7 +166,7 @@ editEmployees = () => {
 addEmployee = async () =>  {
   let roleChoices = await connection.query('SELECT id, title FROM role');
   let mgrChoices = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS Manager FROM employee');
-  // Option to cancel
+  // Option for no manager
   mgrChoices.unshift({ id: null, Manager: "None" });
 
     inquirer.prompt([
@@ -223,9 +223,9 @@ updateEmployeeRole = async () => {
         }
     ]).then(answers => {
         if (answers.empName != "Cancel") {
-            let empID = employees.find(obj => obj.name === answers.empName).id
-            let roleID = roles.find(obj => obj.title === answers.newRole).id
-            connection.query("UPDATE employee SET role_id=? WHERE id=?", [roleID, empID]);
+            let empId = employees.find(obj => obj.name === answers.empName).id
+            let roleId = roles.find(obj => obj.title === answers.newRole).id
+            connection.query("UPDATE employee SET role_id=? WHERE id=?", [roleId, empId]);
             console.log(`${answers.empName} new role is now ${answers.newRole}`);
         }
         runSearch();
@@ -233,7 +233,46 @@ updateEmployeeRole = async () => {
 };
 
 // Update manager with options
+updateManager = async () => {
+    let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
+    // Option to cancel
+    employees.push({ id: null, name: "Cancel" });
 
+    inquirer.prompt([
+        {
+            name: "empName",
+            type: "list",
+            message: "Select an employee:",
+            choices: employees.map(obj => obj.name)
+        }
+    ]).then(employeeInfo => {
+        if (employeeInfo.empName == "Cancel") {
+            runSearch();
+            return;
+        }
+        let managers = employees.filter(currEmployee => currEmployee.name != employeeInfo.empName);
+        for (i in managers) {
+            if (managers[i].name === "Cancel") {
+                managers[i].name = "None";
+            }
+        };
+
+        inquirer.prompt([
+            {
+                name: "mgrName",
+                type: "list",
+                message: "Select their new manager:",
+                choices: managers.map(obj => obj.name)
+            }
+        ]).then(managerInfo => {
+            let empId = employees.find(obj => obj.name === employeeInfo.empName).id
+            let mgrId = managers.find(obj => obj.name === managerInfo.mgrName).id
+            connection.query("UPDATE employee SET manager_id=? WHERE id=?", [mgrId, empId]);
+            console.log(`${employeeInfo.empName} now report to ${managerInfo.mgrName}`);
+            runSearch();
+        })
+    })
+};
 
 // Remove employee
 removeEmployee = async () => {
@@ -288,6 +327,9 @@ editRoles = () => {
   })
 };
 
+// Add role
+
+// Remove role
 
 
 // Edit department options
@@ -315,5 +357,10 @@ editDepartments = () => {
       }
   })
 };
+
+// Add department
+
+// Remove department
+
 
 runSearch();
