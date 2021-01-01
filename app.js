@@ -200,11 +200,38 @@ addEmployee = async () =>  {
     });
 }
 
-  
-
 // Update employee role with options
+updateEmployeeRole = async () => {
+    let roles = await connection.query('SELECT id, title FROM role');
+    let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
+    employees.push({ id: null, name: "Cancel" });
+
+    inquirer.prompt([
+        {
+            name: "empName",
+            type: "list",
+            message: "For which employee?",
+            choices: employees.map(obj => obj.name)
+        },
+        {
+            name: "newRole",
+            type: "list",
+            message: "Change their role to:",
+            choices: roles.map(obj => obj.title)
+        }
+    ]).then(answers => {
+        if (answers.empName != "Cancel") {
+            let empID = employees.find(obj => obj.name === answers.empName).id
+            let roleID = roles.find(obj => obj.title === answers.newRole).id
+            connection.query("UPDATE employee SET role_id=? WHERE id=?", [roleID, empID]);
+            console.log(`${answers.empName} new role is now ${answers.newRole}`);
+        }
+        runSearch();
+    })
+};
 
 // Update manager with options
+
 
 // Remove employee
 
