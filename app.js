@@ -408,6 +408,19 @@ editDepartments = () => {
 };
 
 // Add department
+addDepartment = async () => {
+    inquirer.prompt([
+        {
+            name: "deptName",
+            type: "input",
+            message: "Enter new department:",
+        }
+    ]).then(answers => {
+        connection.query("INSERT INTO department (name) VALUES (?)", [answers.deptName]);
+        console.log(`${answers.deptName} was added.`);
+        runSearch();
+    })
+};
 
 // Remove department
 
