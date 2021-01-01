@@ -166,6 +166,7 @@ editEmployees = () => {
 addEmployee = async () =>  {
   let roleChoices = await connection.query('SELECT id, title FROM role');
   let mgrChoices = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS Manager FROM employee');
+  // Option to cancel
   mgrChoices.unshift({ id: null, Manager: "None" });
 
     inquirer.prompt([
@@ -204,19 +205,20 @@ addEmployee = async () =>  {
 updateEmployeeRole = async () => {
     let roles = await connection.query('SELECT id, title FROM role');
     let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
+    // Option to cancel
     employees.push({ id: null, name: "Cancel" });
 
     inquirer.prompt([
         {
             name: "empName",
             type: "list",
-            message: "For which employee?",
+            message: "Select an employee:",
             choices: employees.map(obj => obj.name)
         },
         {
             name: "newRole",
             type: "list",
-            message: "Change their role to:",
+            message: "Update to new role:",
             choices: roles.map(obj => obj.title)
         }
     ]).then(answers => {
@@ -234,7 +236,27 @@ updateEmployeeRole = async () => {
 
 
 // Remove employee
+removeEmployee = async () => {
+    let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
+    // Option to cancel
+    employees.push({ id: null, name: "Cancel" });
 
+    inquirer.prompt([
+        {
+            name: "employeeName",
+            type: "list",
+            message: "Select an employee to remove:",
+            choices: employees.map(obj => obj.name)
+        }
+    ]).then(response => {
+        if (response.employeeName != "Cancel") {
+            let removeEmployee = employees.find(obj => obj.name === response.employeeName);
+            connection.query("DELETE FROM employee WHERE id=?", removeEmployee.id);
+            console.log(`${response.employeeName} was removed.`);
+        }
+        runSearch();
+    })
+};
 
 // Edit roles options
 editRoles = () => {
