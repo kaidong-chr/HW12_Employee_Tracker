@@ -11,7 +11,6 @@
   - [Prerequisites](#Prerequisites)
   - [Installation](#Installation)
   - [Usage](#Usage)
-  - [Contribution](#Contribution)
   - [Questions](#Questions)
   - [License](#License)
 
@@ -33,9 +32,6 @@
   ### Usage
   In mySQL workbench, setup the database using schema.sql and insert some content using the seed.sql file.<br />
   In VS Code terminal, install the npm dependencies, then use <i>node app.js</i> to run the app in the terminal.
-
-  ### Contribution
-  Kai Dong
 
   ### Questions
   Contact me for questions at dongkai981@gmail.com<br />
