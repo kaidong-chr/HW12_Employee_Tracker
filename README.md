@@ -15,3 +15,11 @@
   - [Questions](#questions)
   - [License](#license)
 
+  ### Demo
+![Image](./assets/images/Employee_Tracker.gif "CMS Demo")<br />
+
+![Image](https://img.shields.io/badge/Languages-JavaScript-yellow)
+
+  ### Implementation
+  Utilized mysql, inquirer, console.table and asciiart-logo npm packages.
+
