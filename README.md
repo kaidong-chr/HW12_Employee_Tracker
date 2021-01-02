@@ -9,17 +9,37 @@
   - [Description](#description)
   - [Demo](#Demo)
   - [Implementation](#Implementation)
-  - [Installation](#installation)
-  - [Usage](#usage)
+  - [Prerequisites](#Prerequisites)
+  - [Usage](#Usage)
   - [Contribution](#Contribution)
-  - [Questions](#questions)
-  - [License](#license)
+  - [Questions](#Questions)
+  - [License](#License)
 
   ### Demo
 ![Image](./assets/images/Employee_Tracker.gif "CMS Demo")<br />
 
 ![Image](https://img.shields.io/badge/Languages-JavaScript-yellow)
 
-  ### Implementation
-  Utilized mysql, inquirer, console.table and asciiart-logo npm packages.
+  ### Prerequisites
+  1. mySQL work bench
+  2. VS Code
+  3. npm packages: mysql, inquirer, console.table and asciiart-logo
 
+  ### Installation
+  ```
+  npm i mysql inquirer console.table asciiart-logo
+  ```
+
+  ### Usage
+  In mySQL workbench, setup the database using schema.sql and insert some content using the seed.sql file.<br />
+  In VS Code terminal, install the npm dependencies, then use <i>node app.js</i> to run the app in the terminal.
+
+  ### Contribution
+  Kai Dong
+
+  ### Questions
+  Contact me for questions at dongkai981@gmail.com<br />
+  Find me on GitHub: https://github.com/kaidong-chr
+
+  ### License
+  Copyright © 2020 Kai Dong<br />
