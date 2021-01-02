@@ -33,15 +33,12 @@ class Database {
 // Connect to our database
 const connection = new Database({
   host: "localhost",
-
   // Your port; if not 3306
   port: 3306,
-
   // Your username
   user: "root",
-
   // Your password
-  password: "homework",
+  password: "",
   database: "employeesDB"
 });
 
@@ -168,7 +165,6 @@ addEmployee = async () =>  {
   let mgrChoices = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS Manager FROM employee');
   // Option for no manager
   mgrChoices.unshift({ id: null, Manager: "None" });
-
     inquirer.prompt([
         {
             name: "firstName",
@@ -207,7 +203,6 @@ updateEmployeeRole = async () => {
     let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
     // Option to cancel
     employees.push({ id: null, name: "Cancel" });
-
     inquirer.prompt([
         {
             name: "empName",
@@ -237,7 +232,6 @@ updateManager = async () => {
     let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
     // Option to cancel
     employees.push({ id: null, name: "Cancel" });
-
     inquirer.prompt([
         {
             name: "empName",
@@ -279,7 +273,6 @@ removeEmployee = async () => {
     let employees = await connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee');
     // Option to cancel
     employees.push({ id: null, name: "Cancel" });
-
     inquirer.prompt([
         {
             name: "employeeName",
@@ -327,7 +320,6 @@ editRoles = () => {
 // Add role
 addRole = async () => {
     let departments = await connection.query('SELECT id, name FROM department');
-
     inquirer.prompt([
         {
             name: "roleName",
@@ -363,7 +355,6 @@ addRole = async () => {
 removeRole = async () => {
     let roles = await connection.query('SELECT id, title FROM role');
     roles.push({ id: null, title: "Cancel" });
-
     inquirer.prompt([
         {
             name: "roleName",
