@@ -9,7 +9,7 @@
   - [Description](#description)
   - [Demo](#Demo)
   - [Prerequisites](#Prerequisites)
-  - [Implementation](#Implementation)
+  - [Installation](#Installation)
   - [Usage](#Usage)
   - [Contribution](#Contribution)
   - [Questions](#Questions)
