@@ -426,8 +426,8 @@ removeDepartment = async () => {
         }
     ]).then(response => {
         if (response.deptName != "Cancel") {
-            let uselessDepartment = departments.find(obj => obj.name === response.deptName);
-            connection.query("DELETE FROM department WHERE id=?", uselessDepartment.id);
+            let removeDepartment = departments.find(obj => obj.name === response.deptName);
+            connection.query("DELETE FROM department WHERE id=?", removeDepartment.id);
             console.log(`${response.deptName} was removed.`);
         }
         runSearch();
