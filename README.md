@@ -30,7 +30,7 @@
   ```
 
   ### Usage
-  In mySQL workbench, setup the database using schema.sql and insert some content using the seed.sql file.<br />
+  In mySQL workbench, setup the database using schema.sql and insert some content using seed.sql.<br />
   In VS Code terminal, install the npm dependencies, then use <i>node app.js</i> to run the app in the terminal.
 
   ### Questions

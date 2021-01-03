@@ -38,7 +38,7 @@ const connection = new Database({
   // Your username
   user: "root",
   // Your password
-  password: "",
+  password: "homework",
   database: "employeesDB"
 });
 
@@ -298,7 +298,6 @@ editRoles = () => {
       message: "What would you like to update?",
       choices: [
           "Add New Role",
-          "Update Role",
           "Remove Role",
           "Main Menu"
       ]
